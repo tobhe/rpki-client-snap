@@ -1,0 +1,66 @@
+name: rpki-client
+base: core22
+version: '8.5'
+summary: A free, easy-to-use implementation of the Resource Public Key Infrastructure (RPKI)
+license: ISC
+description: |
+ rpki-client is a FREE, easy-to-use implementation of the Resource Public Key
+ Infrastructure (RPKI) for Relying Parties (RP) to facilitate validation of
+ BGP announcements. The program queries the global RPKI repository system and
+ validates untrusted network inputs. The program outputs validated ROA payloads
+ and BGPsec Router keys in configuration formats suitable for OpenBGPD and BIRD,
+ or in CSV or JSON format for consumption by other routing stacks.
+grade: devel
+confinement: strict
+compression: lzo
+
+layout:
+  /usr/var/cache/rpki-client:
+    bind: $SNAP_COMMON/cache
+  /var/lib/rpki-client:
+    bind: $SNAP_COMMON/out
+  /etc/tals:
+    bind: $SNAP/etc/tals
+
+apps:
+  rpki-client:
+    command: usr/sbin/rpki-client
+    environment:
+      LD_PRELOAD: "$SNAP/wraplib.so"
+    plugs:
+      - network
+
+passthrough:
+  system-usernames:
+    snap_daemon: shared
+
+parts:
+  group-helper:
+    plugin: make
+    source: group-helper
+    build-packages:
+    - build-essential
+  rpki-client:
+    plugin: autotools
+    source: https://ftp.openbsd.org/pub/OpenBSD/rpki-client/rpki-client-$SNAPCRAFT_PROJECT_VERSION.tar.gz
+    override-pull: |
+      craftctl default
+      patch -p1 < $SNAPCRAFT_PROJECT_DIR/landlock.patch
+    autotools-configure-parameters:
+      - --disable-landlock
+      - --prefix=/usr
+      - --with-output-dir=/var/lib/rpki-client
+      - --with-tal-dir=/etc/tals
+      - --with-rsync=rsync
+      - --with-user=snap_daemon
+    build-packages:
+      - libexpat-dev
+      - libssl-dev
+      - libtls-dev
+      - zlib1g-dev
+    stage-packages:
+      - rsync
+      - rpki-trust-anchors
+      - libtls22
+      - libssl3
+      - zlib1g
