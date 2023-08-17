@@ -1,6 +1,0 @@
-#!/bin/sh -e
-
-chmod 770 "/usr/var/cache/rpki-client"
-chown snap_daemon /usr/var/cache/rpki-client
-chmod 770 "/var/lib/rpki-client"
-chown snap_daemon /var/lib/rpki-client

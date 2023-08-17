@@ -4,6 +4,9 @@ version: '8.5'
 summary: A free, easy-to-use implementation of RPKI
 license: ISC
 icon: rpki-icon.png
+website: https://www.rpki-client.org
+source-code: https://github.com/tobhe/rpki-client-snap
+issues: https://github.com/tobhe/rpki-client-snap/issues
 description: |
  rpki-client is a FREE, easy-to-use implementation of the Resource Public Key
  Infrastructure (RPKI) for Relying Parties (RP) to facilitate validation of
