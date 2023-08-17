@@ -3,6 +3,7 @@ base: core22
 version: '8.5'
 summary: A free, easy-to-use implementation of RPKI
 license: ISC
+icon: rpki-icon.png
 description: |
  rpki-client is a FREE, easy-to-use implementation of the Resource Public Key
  Infrastructure (RPKI) for Relying Parties (RP) to facilitate validation of
@@ -10,6 +11,10 @@ description: |
  validates untrusted network inputs. The program outputs validated ROA payloads
  and BGPsec Router keys in configuration formats suitable for OpenBGPD and BIRD,
  or in CSV or JSON format for consumption by other routing stacks.
+ .
+ This snap installs a service that runs hourly and by default outputs validated
+ payloads in OpenBGPD compatible format to `/var/snap/rpki-client/common/`.
+ 
 grade: devel
 confinement: strict
 compression: lzo
@@ -29,6 +34,14 @@ apps:
       LD_PRELOAD: "$SNAP/wraplib.so"
     plugs:
       - network
+  rpki-client-timer:
+    command: usr/sbin/rpki-client
+    environment:
+      LD_PRELOAD: "$SNAP/wraplib.so"
+    plugs:
+      - network
+    daemon: oneshot
+    timer: 00:00-24:00/24
 
 passthrough:
   system-usernames:
@@ -51,7 +64,7 @@ parts:
       - --prefix=/usr
       - --with-output-dir=/var/lib/rpki-client
       - --with-tal-dir=/etc/tals
-      - --with-rsync=rsync
+      - --with-rsync=openrsync
       - --with-user=snap_daemon
     build-packages:
       - libexpat-dev
@@ -59,8 +72,6 @@ parts:
       - libtls-dev
       - zlib1g-dev
     stage-packages:
-      - rsync
-      - rpki-trust-anchors
       - libtls22
       - libssl3
       - zlib1g
