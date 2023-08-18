@@ -1,9 +1,9 @@
 #!/bin/sh -e
 
 mkdir -p /var/snap/rpki-client/common/cache
-chmod 640 /var/snap/rpki-client/common/cache
+chmod  755 /var/snap/rpki-client/common/cache
 chown snap_daemon /var/snap/rpki-client/common/cache
 
 mkdir -p /var/snap/rpki-client/common/out
-chmod 640 /var/snap/rpki-client/common/out
+chmod 755 /var/snap/rpki-client/common/out
 chown snap_daemon /var/snap/rpki-client/common/out

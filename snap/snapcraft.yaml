@@ -16,7 +16,7 @@ description: |
  or in CSV or JSON format for consumption by other routing stacks.
  .
  This snap installs a service that runs hourly and by default outputs validated
- payloads in OpenBGPD compatible format to `/var/snap/rpki-client/common/`.
+ payloads in OpenBGPD compatible format to `/var/snap/rpki-client/common/out`.
  
 grade: devel
 confinement: strict
