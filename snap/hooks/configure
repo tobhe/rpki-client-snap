@@ -1,9 +1,13 @@
 #!/bin/sh -e
 
-mkdir -p /var/snap/rpki-client/common/cache
-chmod  755 /var/snap/rpki-client/common/cache
-chown snap_daemon /var/snap/rpki-client/common/cache
+if [ ! -d /var/snap/rpki-client/common/cache]; then
+	mkdir -p /var/snap/rpki-client/common/cache
+	chmod 755 /var/snap/rpki-client/common/cache
+	chown snap_daemon /var/snap/rpki-client/common/cache
+fi
 
-mkdir -p /var/snap/rpki-client/common/out
-chmod 755 /var/snap/rpki-client/common/out
-chown snap_daemon /var/snap/rpki-client/common/out
+if [ ! -d /var/snap/rpki-client/common/out]; then
+	mkdir -p /var/snap/rpki-client/common/out
+	chmod 755 /var/snap/rpki-client/common/out
+	chown snap_daemon /var/snap/rpki-client/common/out
+fi
