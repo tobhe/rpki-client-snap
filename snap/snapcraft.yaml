@@ -1,6 +1,6 @@
 name: rpki-client
 base: core22
-version: '8.5'
+version: '9.0'
 summary: A free, easy-to-use implementation of RPKI
 license: ISC
 icon: rpki-icon.png
@@ -61,7 +61,6 @@ parts:
     source: https://ftp.openbsd.org/pub/OpenBSD/rpki-client/rpki-client-$SNAPCRAFT_PROJECT_VERSION.tar.gz
     override-pull: |
       craftctl default
-      patch -p1 < $SNAPCRAFT_PROJECT_DIR/landlock.patch
     autotools-configure-parameters:
       - --disable-landlock
       - --prefix=/usr
