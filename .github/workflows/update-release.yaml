@@ -17,6 +17,8 @@ jobs:
       - name: Sync version with upstream
         uses: snapcrafters/ci/sync-version@main      
         with:
+          bot-email: snap-bot@tobhe.de
+          bot-name: "Update Bot"
           token: ${{ secrets.GITHUB_TOKEN }}
           update-script: |
             VERSION=$(curl -sL https://ftp.openbsd.org/pub/OpenBSD/rpki-client/SHA256 | grep -oP 'rpki-client-\K.*(?=.tar.gz)' | sort -r | head -n1)
