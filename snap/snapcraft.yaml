@@ -1,5 +1,5 @@
 name: rpki-client
-base: core22
+base: core24
 version: 9.2
 summary: A free, easy-to-use implementation of RPKI
 license: ISC
@@ -77,6 +77,6 @@ parts:
       - libtls-dev
       - zlib1g-dev
     stage-packages:
-      - libtls22
+      - libtls28t64
       - libssl3
       - zlib1g
