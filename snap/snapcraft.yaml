@@ -1,6 +1,6 @@
 name: rpki-client
 base: core22
-version: '9.2'
+version: 9.2
 summary: A free, easy-to-use implementation of RPKI
 license: ISC
 icon: rpki-icon.png
