@@ -15,6 +15,10 @@ This snap installs a service that runs hourly and by default outputs validated p
 
 ## Installation
 
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/rpki-client)
+
+or simply:
+
 ```
 snap install rpki-client
 ```
