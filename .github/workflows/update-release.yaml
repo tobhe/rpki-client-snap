@@ -1,0 +1,23 @@
+name: Update Release
+
+on:
+  schedule:
+    - cron: '0 9 * * *'
+  worflow_dispatch:
+
+  concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+  jobs:
+    sync:
+      name: Sync version with upstream
+      runs-on: ubuntu-latest
+      steps:
+        - name: Sync version with upstream
+          uses: snapcrafters/ci/sync-version@main      
+          with:
+            token: ${{ secrets.TOKEN }}
+          update-script: |
+            VERSION=$(curl -sL https://ftp.openbsd.org/pub/OpenBSD/rpki-client/SHA256 | grep -oP 'rpki-client-\K.*(?=.tar.gz)' | sort -r | head -n1)
+            sed -i 's/^\(version: \).*$/\1'"$VERSION"'/' snap/snapcraft.yaml
