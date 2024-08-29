@@ -3,7 +3,7 @@ name: Automated snap build
 on:
   push:
     branches:
-      - master
+      - candidate
 
 jobs:
   build:
